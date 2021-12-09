@@ -1,0 +1,76 @@
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+
+void wprowadzenie(int wezly, double* wartosci_wezlow, double* wartosc_funkcji){
+    for(int i = 0;i<wezly;){
+        cout<<"Wprowadz wartosc wezla: ";
+        cin>>wartosci_wezlow[i];
+        if(i!=0)if(wartosci_wezlow[i]<=wartosci_wezlow[i-1])cout<<"Wprowadzono bledno wartosc\nWprowadz poprawna wartosc wezla: ";
+        if(i!=0)if(wartosci_wezlow[i]>wartosci_wezlow[i-1])i++;
+        if(i==0)i++;
+    }
+    for(int i = 0;i<wezly;i++){
+        cout<<"Wprowadz wartosc funkcji w wezle "<<i+1<<" f("<<wartosci_wezlow[i]<<") : ";
+        cin>>wartosc_funkcji[i];
+    }
+}
+
+bool sprawdzenie(double* wartosci_wezlow, int wezly){
+    for(int i=0;i<wezly-1;i++)if(wartosci_wezlow[i+1]<=wartosci_wezlow[i])return false;
+    return true;
+}
+
+
+double Nevil(double* wartosci_wezlow, double* wartosci_funkcji, int wezly,double punkt){
+double p[wezly-1];
+int i;
+for(int k=0; k<=wezly-1; k++) 
+{ 
+  p[k]=wartosci_funkcji[k]; 
+  for (int i=k-1; i>=0; i--) 
+  
+   p[i]=p[i+1]+(p[i+1]-p[i])*(punkt-wartosci_wezlow[k])/(wartosci_wezlow[k]-wartosci_wezlow[i]); 
+  
+}
+return p[0];
+}
+
+
+
+
+int main(){
+    int wezly;
+    double punkt;
+   
+    
+    cout<<"Podaj liczbe wezlow : ";
+    cin>>wezly;
+    double wartosci_wezlow[wezly],wartosci_funkcji[wezly];
+    wprowadzenie(wezly,wartosci_wezlow,wartosci_funkcji);
+    if(!sprawdzenie(wartosci_wezlow,wezly)){
+        cout<<"Wprowadzony bledny wielomian interpolacyjny\n";
+        return 0;
+    }
+    
+
+
+    double wynik;
+    
+    cout<<"Podaj punkt w ktorym chcesz obliczyc wartosc wielomianu interpolacyjnego : ";
+    cin>>punkt;
+    cout<<punkt<<endl;
+    if(punkt>=wartosci_wezlow[0] && punkt<=wartosci_wezlow[4]){
+    wynik = Nevil(wartosci_wezlow,wartosci_funkcji,wezly,punkt);
+    cout<<"WYNIK : "<<wynik<<endl;
+}
+   
+
+    
+
+return 0;
+}
+
+
