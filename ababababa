@@ -1,0 +1,104 @@
+#include <iostream>
+#include <cstdlib>
+#include <math.h>
+using namespace std;
+
+
+void wprowadzenie(int wezly, double* wartosci_wezlow, double* wartosc_funkcji){
+    for(int i = 0;i<wezly;){
+        cout<<"Wprowadz wartosc wezla: ";
+        cin>>wartosci_wezlow[i];
+        i++;
+    }
+    for(int i = 0;i<wezly;i++){
+        cout<<"Wprowadz wartosc funkcji w wezle "<<i+1<<" f("<<wartosci_wezlow[i]<<") : ";
+        cin>>wartosc_funkcji[i];
+    }
+}
+
+
+
+void liczenie(int wezly,double* wartosci_wezlow, double* wartosc_funkcji,double& a,double& b){
+double sumaX=0,sumaY=0,W=0,W1=0,W2=0,sumaXkwadrat=0,sumailoczynu=0;
+
+for(int i=0;i<wezly;i++){
+    sumaX=wartosci_wezlow[i]+sumaX;
+    sumaY=wartosc_funkcji[i]+sumaY;
+    sumaXkwadrat=(wartosci_wezlow[i]*wartosci_wezlow[i])+sumaXkwadrat;
+    sumailoczynu=wartosci_wezlow[i]*wartosc_funkcji[i]+sumailoczynu;
+}
+cout<<"suma x "<<sumaX<<" suma y "<<sumaY<<endl;
+cout<<"suma x^2 "<<sumaXkwadrat<<" suma y * x "<<sumailoczynu<<endl;
+W=((wezly)*sumaXkwadrat)-(sumaX*sumaX);
+cout<<((wezly)*sumaXkwadrat)<<endl;
+W1=sumaY*sumaXkwadrat-sumailoczynu*sumaX;
+W2=(wezly)*sumailoczynu-sumaX*sumaY;
+cout<<"W1 "<<W1<<" W2 "<<W2<<" W "<<W<<endl;
+a=W1/W;
+b=W2/W;
+
+
+}
+
+void liczenie2(int wezly,double* wartosci_wezlow, double* wartosc_funkcji,double& a,double& b){
+double wartosci[wezly];
+for(int i=0;i<wezly;i++){
+    wartosci[i]=1/wartosci_wezlow[i];
+}
+liczenie(wezly,wartosci,wartosc_funkcji,a,b);
+}
+
+
+int main(){
+
+int c;
+int wezly;
+double a;
+double b;
+cout<<"Podaj liczbe wezlow : ";
+cin>>wezly;
+double wartosci_wezlow[wezly],wartosci_funkcji[wezly];
+wprowadzenie(wezly,wartosci_wezlow,wartosci_funkcji);
+while(1){
+cout<<"########################################"<<endl;
+cout<<"##### WYBIERZ FUNKCJE AROKSYMUJACA #####"<<endl;
+cout<<"########################################"<<endl;
+cout<<"#########     1 - g(x)=ax+b    #########"<<endl;
+cout<<"########################################"<<endl;
+cout<<"#########     2 - g(x)=a/x*b   #########"<<endl;
+cout<<"########################################"<<endl;
+cin>>c;
+if(c==1){
+liczenie(wezly,wartosci_wezlow,wartosci_funkcji,a,b);
+cout<<" a "<<a<<" b "<<b<<endl;
+return 0;
+}else if(c==2){
+liczenie2(wezly,wartosci_wezlow,wartosci_funkcji,a,b);
+cout<<" a "<<a<<" b "<<b<<endl;
+return 0;
+}else{
+cout<<"zla liczba"<<endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//liczenie(wezly,wartosci_wezlow,wartosci_funkcji,a,b);
+
+
+
+}
+}
+
+
